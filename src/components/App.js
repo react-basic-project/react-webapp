@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, Switch, Route, useRouteMatch, useParams } from "react-router-dom";
 import styled from 'styled-components';
 
 const HomeStyled = styled.div`
@@ -27,15 +27,35 @@ export const Home = () => {
 };
 
 export const List = () => {
+  const { path, url } = useRouteMatch();
+  console.log(path);
   return (
     <div>
       <ul>
-        <li>list 1</li>
-        <li>list 2</li>
+        <Link to={`${url}/1`}><li>list 1</li></Link>
+        <Link to={`${url}/2`}><li>list 2</li></Link>
       </ul>
       <Button to="/">back to the Home</Button>
+
+      <Switch>
+        <Route exact path={path}>
+          <h3>please select List item</h3>
+        </Route>
+        <Route path={`${path}/:listId`}>
+          <ListDetail />
+        </Route>
+      </Switch>
     </div>
   )
+}
+
+export const ListDetail = () => {
+  const { listId } = useParams();
+  return (
+    <div>
+    this list id is {listId}!
+    </div>
+  );
 }
 
 export default {
