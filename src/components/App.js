@@ -28,7 +28,6 @@ export const Home = () => {
 
 export const List = () => {
   const { path, url } = useRouteMatch();
-  console.log(path);
   return (
     <div>
       <ul>
